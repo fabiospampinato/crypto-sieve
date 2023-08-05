@@ -9,8 +9,15 @@ const {floor} = Math;
 
 const sieve = ( limit: number ): number[] => {
 
+  return [...sieve.iterator ( limit )];
+
+};
+
+/* UTILITIES */
+
+sieve.iterator = function* ( limit: number = Infinity ): IterableIterator<number> {
+
   const buffer = new Uint8Array ( Math.ceil ( limit / 8 ) ).fill ( 255 ); // 1 bit per number, 1 = prime, 0 = not prime
-  const primes: number[] = [];
 
   for ( let i = 2; i <= limit; i++ ) {
 
@@ -19,7 +26,7 @@ const sieve = ( limit: number ): number[] => {
 
     if ( buffer[bufferIndex] & ( 1 << byteIndex ) ) { // Is prime
 
-      primes.push ( i );
+      yield i;
 
       for ( let j = i + i; j <= limit; j += i ) {
 
@@ -33,8 +40,6 @@ const sieve = ( limit: number ): number[] => {
     }
 
   }
-
-  return primes;
 
 };
 
