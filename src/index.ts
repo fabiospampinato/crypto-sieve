@@ -6,6 +6,7 @@ const {floor} = Math;
 /* MAIN */
 
 //TODO: Use windowing for the buffer, allocating a fixed-size buffer that gets repopulated when needed
+//TODO: Maybe only store odd numbers in the buffer, cutting the memory usage in half
 
 const sieve = ( limit: number ): number[] => {
 
