@@ -16,7 +16,7 @@ const sieve = ( limit: number ): number[] => {
 
 /* UTILITIES */
 
-sieve.iterator = function* ( limit: number = Infinity ): IterableIterator<number> {
+sieve.iterator = function* ( limit: number ): IterableIterator<number> {
 
   const buffer = new Uint8Array ( Math.ceil ( limit / 8 ) ).fill ( 255 ); // 1 bit per number, 1 = prime, 0 = not prime
 
