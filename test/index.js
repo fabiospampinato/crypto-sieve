@@ -10,25 +10,33 @@ describe ( 'Cryto Sieve', it => {
 
   it ( 'can generate prime numbers', t => {
 
-    const actual = sieve ( 100 );
-    const expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+    for ( const limit of [97, 98, 99, 100] ) {
 
-    t.deepEqual ( actual, expected );
+      const actual = sieve ( limit );
+      const expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+
+      t.deepEqual ( actual, expected );
+
+    }
 
   });
 
   it ( 'can generate numbers as an iterator', t => {
 
-    const actual = [];
-    const expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
+    for ( const limit of [97, 98, 99, 100] ) {
 
-    for ( const prime of sieve.iterator ( 100 ) ) {
+      const actual = [];
+      const expected = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97];
 
-      actual.push ( prime );
+      for ( const prime of sieve.iterator ( limit ) ) {
+
+        actual.push ( prime );
+
+      }
+
+      t.deepEqual ( actual, expected );
 
     }
-
-    t.deepEqual ( actual, expected );
 
   });
 

@@ -6,7 +6,6 @@ const {floor} = Math;
 /* MAIN */
 
 //TODO: Use windowing for the buffer, allocating a fixed-size buffer that gets repopulated when needed
-//TODO: Maybe only store odd numbers in the buffer, cutting the memory usage in half
 
 const sieve = ( limit: number ): number[] => {
 
@@ -18,18 +17,24 @@ const sieve = ( limit: number ): number[] => {
 
 sieve.iterator = function* ( limit: number ): IterableIterator<number> {
 
-  const buffer = new Uint8Array ( Math.ceil ( limit / 8 ) ).fill ( 255 ); // 1 bit per number, 1 = prime, 0 = not prime
+  if ( limit < 2 ) return;
 
-  for ( let i = 2; i <= limit; i++ ) {
+  const buffer = new Uint8Array ( Math.ceil ( limit / 2 / 8 ) ).fill ( 255 ); // 1 bit per odd number, 1 = prime, 0 = not prime
+
+  yield 2; // The first prime, and the only even prime
+
+  for ( let i = 1, l = Math.ceil ( limit / 2 ); i < l; i++ ) {
 
     const bufferIndex = floor ( i / 8 );
     const byteIndex = i % 8;
 
     if ( buffer[bufferIndex] & ( 1 << byteIndex ) ) { // Is prime
 
-      yield i;
+      const prime = ( i << 1 ) + 1;
 
-      for ( let j = i + i; j <= limit; j += i ) {
+      yield prime;
+
+      for ( let j = i + prime; j < l; j += prime ) {
 
         const bufferIndex = floor ( j / 8 );
         const byteIndex = j % 8;
