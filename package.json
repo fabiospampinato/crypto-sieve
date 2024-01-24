@@ -2,7 +2,7 @@
   "name": "crypto-sieve",
   "repository": "github:fabiospampinato/crypto-sieve",
   "description": "Low memory-usage implementation of a Sieve of Eratosthenes.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
