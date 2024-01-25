@@ -19,7 +19,7 @@ sieve.iterator = function* ( limit: number ): IterableIterator<number> {
 
   if ( limit < 2 ) return;
 
-  const buffer = new Uint8Array ( Math.ceil ( limit / 2 / 8 ) ).fill ( 255 ); // 1 bit per odd number, 1 = prime, 0 = not prime
+  const buffer = new Uint8Array ( Math.ceil ( limit / 2 / 8 ) ); // 1 bit per odd number, 0 = prime, 1 = not prime
 
   yield 2; // The first prime, and the only even prime
 
@@ -28,7 +28,7 @@ sieve.iterator = function* ( limit: number ): IterableIterator<number> {
     const bufferIndex = floor ( i / 8 );
     const byteIndex = i % 8;
 
-    if ( buffer[bufferIndex] & ( 1 << byteIndex ) ) { // Is prime
+    if ( ( buffer[bufferIndex] & ( 1 << byteIndex ) ) === 0 ) { // Is prime
 
       const prime = ( i << 1 ) + 1;
 
@@ -39,7 +39,7 @@ sieve.iterator = function* ( limit: number ): IterableIterator<number> {
         const bufferIndex = floor ( j / 8 );
         const byteIndex = j % 8;
 
-        buffer[bufferIndex] &=~ ( 1 << byteIndex ); // Is not prime
+        buffer[bufferIndex] |= ( 1 << byteIndex ); // Is not prime
 
       }
 
